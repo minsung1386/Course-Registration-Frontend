@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginContainer from 'components/Landing/LoginContainer';
+import LoginWrapper from 'components/Landing/LoginWrapper';
 
 const TITLE = 'Sugang System - SW Coach Program';
 
@@ -13,7 +13,7 @@ const Title = styled.h1`
 	text-align: center;
 	font-size: 40px;
 
-	width: 40rem;
+	width: 60rem;
 	margin: 5rem auto 2rem auto;
 `;
 
@@ -21,7 +21,7 @@ function LandingPage() {
 	return (
 		<IntroWrapper>
 			<Title>{TITLE}</Title>
-			<LoginContainer />
+			<LoginWrapper />
 		</IntroWrapper>
 	);
 }

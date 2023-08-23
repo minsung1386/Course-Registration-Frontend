@@ -35,8 +35,9 @@ module.exports = {
 				allowBind: true,
 			},
 		],
-		// 'no-console': 'off',
+		'no-console': 'off',
 		'no-alert': 'off',
+		'react/no-array-index-key': 0,
 	},
 	settings: {
 		'import/resolver': {
