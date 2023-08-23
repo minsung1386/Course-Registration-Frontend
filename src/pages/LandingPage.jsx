@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { useSelector } from 'react-redux';
-import LoginContainer from 'components/Landing/LoginContainer';
-import { getData } from 'actions/login';
+import LoginWrapper from 'components/Landing/LoginWrapper';
 
 const TITLE = 'Sugang System - SW Coach Program';
 
@@ -20,15 +18,10 @@ const Title = styled.h1`
 `;
 
 function LandingPage() {
-	getData();
-
-	// const { data } = useSelector((state) => state.user);
-
 	return (
 		<IntroWrapper>
 			<Title>{TITLE}</Title>
-			{/* <Title>{data}</Title> */}
-			<LoginContainer />
+			<LoginWrapper />
 		</IntroWrapper>
 	);
 }

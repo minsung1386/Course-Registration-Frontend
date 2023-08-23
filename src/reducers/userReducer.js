@@ -1,13 +1,19 @@
 const initialState = {
-	data: 'none',
+	toggleLogin: true,
+	token: '',
 };
 
 function userReducer(state = initialState, action) {
 	switch (action.type) {
-		case 'TEST':
+		case 'TOGGLE_LOGIN':
 			return {
 				...state,
-				data: action.payload,
+				toggleLogin: action.payload,
+			};
+		case 'SET_TOKEN':
+			return {
+				...state,
+				token: action.payload,
 			};
 		default:
 			return state;

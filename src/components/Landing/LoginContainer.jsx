@@ -1,13 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { TextField, Button } from '@mui/material';
-
-const LoginWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 15vh;
-`;
+import { clickRegister, setJwtToken } from 'actions/login';
 
 const LoginForm = styled.form`
 	display: flex;
@@ -27,15 +24,54 @@ const LoginButton = styled(Button)`
 `;
 
 function LoginContainer() {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const userInformation = { username, password };
+		const response = await axios.post('/api/authenticate', userInformation);
+
+		if (response.status === 200) {
+			dispatch(setJwtToken(response.data.token));
+			console.log(response.data.token);
+			navigate('/main');
+		} else {
+			alert('wtf error');
+		}
+	};
+
+	const handleClickRegister = () => {
+		dispatch(clickRegister());
+	};
+
 	return (
-		<LoginWrapper>
-			<LoginForm>
-				<h2>로그인</h2>
-				<TextField label="사용자 이름" variant="outlined" />
-				<TextField label="비밀번호" type="password" variant="outlined" />
-				<LoginButton variant="contained">로그인</LoginButton>
-			</LoginForm>
-		</LoginWrapper>
+		<LoginForm onSubmit={handleSubmit}>
+			<h2>로그인</h2>
+			<TextField
+				sx={{ width: 250 }}
+				label="username"
+				variant="outlined"
+				onChange={(e) => setUsername(e.target.value)}
+				required
+			/>
+			<TextField
+				sx={{ width: 250 }}
+				label="password"
+				type="password"
+				variant="outlined"
+				onChange={(e) => setPassword(e.target.value)}
+				required
+			/>
+			<LoginButton type="submit" variant="contained">
+				로그인
+			</LoginButton>
+			<Button onClick={handleClickRegister}>회원가입</Button>
+		</LoginForm>
 	);
 }
 
