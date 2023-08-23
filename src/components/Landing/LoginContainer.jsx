@@ -38,7 +38,6 @@ function LoginContainer() {
 
 		if (response.status === 200) {
 			dispatch(setJwtToken(response.data.token));
-			console.log(response.data.token);
 			navigate('/main');
 		} else {
 			alert('wtf error');

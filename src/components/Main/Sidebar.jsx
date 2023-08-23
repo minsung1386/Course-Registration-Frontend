@@ -1,3 +1,5 @@
+import { React, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
 	Container,
 	Divider,
@@ -11,16 +13,22 @@ import {
 	Toolbar,
 } from '@mui/material';
 import { styled } from 'styled-components';
-import { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import PlaylistAddCheckIcon from '@mui/icons-material/PlaylistAddCheck';
+import { getStudentInfo } from 'actions/getStudentInfo';
 
 const SidebarInfo = styled.div`
 	margin-bottom: 5px;
 `;
 
 function Sidebar() {
+	// load student info
+	getStudentInfo();
+
+	const { student } = useSelector((state) => state.user);
+	console.log(student);
+
 	const [selectedIndex, setSelectedIndex] = useState();
 
 	const handleListItemClick = (index) => {
@@ -68,10 +76,10 @@ function Sidebar() {
 				}}
 			>
 				<Container>
-					<SidebarInfo>이름 : {}</SidebarInfo>
-					<SidebarInfo>학과 : {}</SidebarInfo>
-					<SidebarInfo>학번 : {}</SidebarInfo>
-					<SidebarInfo>수강신청 가능 학점 : {}</SidebarInfo>
+					<SidebarInfo>이름 : {student.name}</SidebarInfo>
+					<SidebarInfo>학과 : {student.major}</SidebarInfo>
+					<SidebarInfo>학번 : {student.idNum}</SidebarInfo>
+					<SidebarInfo>수강신청 가능 학점 : {student.availableCredit}</SidebarInfo>
 				</Container>
 			</Stack>
 		</Drawer>

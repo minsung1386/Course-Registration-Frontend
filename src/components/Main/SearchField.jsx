@@ -12,15 +12,22 @@ function SearchField() {
 
 	const handleSearch = async () => {
 		try {
-			const response = await axios.get(`/api/course/search?courseId=${searchText}`, {
+			const response = await axios.get(`/api/course/total?keyword=${searchText}`, {
 				headers: {
-					Authorization: `Bearer ${token}`, // Authorization header 에 JWT token 포함
+					// Authorization header 에 JWT token 포함
+					Authorization: `Bearer ${token}`,
 				},
 			});
 
 			setSearchData(response.data);
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const handleKeyDown = (event) => {
+		if (event.code === 'Enter') {
+			handleSearch();
 		}
 	};
 
@@ -36,6 +43,7 @@ function SearchField() {
 				onChange={handleInputChange}
 				variant="outlined"
 				size="small"
+				onKeyDown={handleKeyDown}
 			/>
 			<IconButton onClick={handleSearch}>
 				<SearchIcon />
